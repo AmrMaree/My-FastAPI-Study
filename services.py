@@ -1,5 +1,4 @@
-from sqlalchemy.orm import Session
-import data_access
+import data_access_sqlite
 
 def get_messages():
-    return data_access.get_messages()
+    return data_access_sqlite.get_messages()
