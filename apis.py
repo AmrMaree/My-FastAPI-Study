@@ -14,4 +14,4 @@ app.add_middleware(
 
 @app.get("/")
 def index():
-    {"message": "welcome to my api!"}
+    return {"message": "welcome to my api!"}
