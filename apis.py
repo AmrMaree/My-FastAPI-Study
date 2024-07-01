@@ -15,7 +15,6 @@ app.add_middleware(
 
 @app.get("/")
 def root():
-    print("11")
     return {"message": "Welcome to FastAPI"}
 
 
@@ -26,6 +25,10 @@ def get_messages():
         return {"message": message_content}
     return {"message": "No message found"}
 
+@app.post("/post")
+def create_post(title : str, content : str, userid : int):
+    services.create_post(title, content, userid)
+    return
 
 
 if __name__=="__main__":
