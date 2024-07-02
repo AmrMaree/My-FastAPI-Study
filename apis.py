@@ -46,7 +46,7 @@ def get_post_comments(post_id : int):
     print(comments)
     if comments:
         return {"message": comments}
-    return {"message": "No message found"}
+    return {"message": "No comments found"}
 
 @app.delete("/comments/{comment_id}")
 def delete_comment(id : int):
@@ -54,6 +54,14 @@ def delete_comment(id : int):
     if result["success"]: 
         return JSONResponse(status_code=200,content= result["message"])
     return JSONResponse(status_code= 404,content= result["message"])
+
+@app.delete("/posts/{post_id}")
+def delete_post(id : int):
+    result = services.delete_post(id)
+    if result["success"]: 
+        return JSONResponse(status_code=200,content= result["message"])
+    return JSONResponse(status_code= 404,content= result["message"])
+
 
 if __name__=="__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

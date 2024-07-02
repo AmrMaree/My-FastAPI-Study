@@ -85,3 +85,18 @@ def delete_comment(id : int):
     finally:
         connection.close()
     return True
+
+
+def delete_post(id : int):
+    try:
+        connection = sqlite3.connect("messages.db")
+        cursor = connection.cursor()
+        sql_command ="""delete from posts where id = ?;"""
+        cursor.execute(sql_command, (id,))
+        connection.commit()
+    except Exception as ex:
+        print("Failed to connect to database")
+        return False
+    finally:
+        connection.close()
+    return True

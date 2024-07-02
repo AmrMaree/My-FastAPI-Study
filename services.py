@@ -21,3 +21,8 @@ def delete_comment(id : int):
     if data_access_sqlite.delete_comment(id):
         return {"message": "Deleted comment successfully", "success": True}
     return {"message": "Failed to delete comment", "success": False}
+
+def delete_post(id : int):
+    if data_access_sqlite.delete_post(id):
+        return {"message": "Deleted post successfully", "success": True}
+    return {"message": "Failed to delete post", "success": False}
