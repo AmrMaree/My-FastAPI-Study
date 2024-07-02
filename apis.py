@@ -33,5 +33,12 @@ def create_post(title : str, content : str, userid : int):
         return JSONResponse(status_code=201,content= result["message"])
     return JSONResponse(status_code= 404,content= result["message"])
 
+@app.post("/posts/{id}/comments")
+def create_comment(content : str, post_id: int, user_id : int):
+    result = services.create_comment(content, post_id ,user_id)
+    if result["success"]: 
+        return JSONResponse(status_code=201,content= result["message"])
+    return JSONResponse(status_code= 404,content= result["message"])
+
 if __name__=="__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

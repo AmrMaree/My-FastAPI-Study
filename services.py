@@ -8,3 +8,8 @@ def create_post(title : str, content : str, userid : int):
         return {"message": "Created post successfully", "success": True}
     return {"message": "Failed to create post", "success": False}
     
+
+def create_comment(content : str, post_id : int, user_id : int):
+    if data_access_sqlite.create_comment(content, post_id, user_id):
+        return {"message": "Created comment successfully", "success": True}
+    return {"message": "Failed to create comment", "success": False}
