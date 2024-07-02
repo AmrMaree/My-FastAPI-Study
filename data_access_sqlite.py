@@ -55,3 +55,17 @@ def create_comment(content : str, post_id : int, user_id : int):
     finally:
         connection.close()
     return True
+
+
+def get_post_comments(post_id : int):
+    try:
+        connection = sqlite3.connect("messages.db")
+        cursor = connection.cursor()
+        sql_command ="""select content from comments where post_id = ?;"""
+        cursor.execute(sql_command, (post_id,))
+        comments = cursor.fetchall()
+    except Exception as ex:
+        print("Failed to connect to database")
+    finally:
+        connection.close()
+    return comments

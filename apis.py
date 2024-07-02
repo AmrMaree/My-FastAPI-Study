@@ -40,5 +40,13 @@ def create_comment(content : str, post_id: int, user_id : int):
         return JSONResponse(status_code=201,content= result["message"])
     return JSONResponse(status_code= 404,content= result["message"])
 
+@app.get("/posts/{id}/comments")
+def get_post_comments(post_id : int):
+    comments = services.get_post_comments(post_id)
+    print(comments)
+    if comments:
+        return {"message": comments}
+    return {"message": "No message found"}
+
 if __name__=="__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
