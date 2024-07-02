@@ -4,5 +4,7 @@ def get_messages():
     return data_access_sqlite.get_messages()
 
 def create_post(title : str, content : str, userid : int):
-    data_access_sqlite.create_post(title , content , userid)
-    return
+    if data_access_sqlite.create_post(title , content , userid):
+        return {"message": "Created post successfully", "success": True}
+    return {"message": "Failed to create post", "success": False}
+    
