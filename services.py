@@ -16,3 +16,8 @@ def create_comment(content : str, post_id : int, user_id : int):
 
 def get_post_comments(post_id : int):
     return data_access_sqlite.get_post_comments(post_id)
+
+def delete_comment(id : int):
+    if data_access_sqlite.delete_comment(id):
+        return {"message": "Deleted comment successfully", "success": True}
+    return {"message": "Failed to delete comment", "success": False}

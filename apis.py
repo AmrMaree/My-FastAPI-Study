@@ -48,5 +48,12 @@ def get_post_comments(post_id : int):
         return {"message": comments}
     return {"message": "No message found"}
 
+@app.delete("/comments/{comment_id}")
+def delete_comment(id : int):
+    result = services.delete_comment(id)
+    if result["success"]: 
+        return JSONResponse(status_code=200,content= result["message"])
+    return JSONResponse(status_code= 404,content= result["message"])
+
 if __name__=="__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

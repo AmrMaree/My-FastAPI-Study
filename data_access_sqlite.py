@@ -46,6 +46,7 @@ def create_comment(content : str, post_id : int, user_id : int):
             id = 1
         else:
             id = int(max_id) + 1
+        #cursor.execute("PRAGMA foreign_keys = ON;")
         sql_command = """INSERT INTO comments (id, content, post_id ,user_id) VALUES (?, ?, ?, ?);"""
         cursor.execute(sql_command, (id, content, post_id, user_id))
         connection.commit()
@@ -69,3 +70,18 @@ def get_post_comments(post_id : int):
     finally:
         connection.close()
     return comments
+
+
+def delete_comment(id : int):
+    try:
+        connection = sqlite3.connect("messages.db")
+        cursor = connection.cursor()
+        sql_command ="""delete from comments where id = ?;"""
+        cursor.execute(sql_command, (id,))
+        connection.commit()
+    except Exception as ex:
+        print("Failed to connect to database")
+        return False
+    finally:
+        connection.close()
+    return True
