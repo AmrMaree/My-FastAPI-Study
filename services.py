@@ -1,6 +1,7 @@
-import data_access_sqlite
+import data_access_sqlite ,data_access_mysql
 
 def get_messages():
+    return data_access_mysql.get_messages()
     return data_access_sqlite.get_messages()
 
 def create_post(title : str, content : str, userid : int):
