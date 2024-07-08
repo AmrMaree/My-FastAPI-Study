@@ -4,9 +4,9 @@ def get_messages():
     try:
         connection = psycopg2.connect(
         user="postgres",
-        password="P@ssw0rd",
+        password="123",
         host="127.0.0.1",
-        port="5432",
+        port="5433",
         database="messages"
         )
         cursor = connection.cursor()
@@ -23,9 +23,9 @@ def create_post(title : str, content : str, userid : int):
     try:
         connection = psycopg2.connect(
         user="postgres",
-        password="P@ssw0rd",
+        password="123",
         host="127.0.0.1",
-        port="5432",
+        port="5433",
         database="messages"
         )
         cursor = connection.cursor()
@@ -51,9 +51,9 @@ def create_comment(content : str, post_id : int, user_id : int):
     try:
         connection = psycopg2.connect(
         user="postgres",
-        password="P@ssw0rd",
+        password="123",
         host="127.0.0.1",
-        port="5432",
+        port="5433",
         database="messages"
         )
         cursor = connection.cursor()
@@ -79,9 +79,9 @@ def get_post_comments(post_id : int):
     try:
         connection = psycopg2.connect(
         user="postgres",
-        password="P@ssw0rd",
+        password="123",
         host="127.0.0.1",
-        port="5432",
+        port="5433",
         database="messages"
         )
         cursor = connection.cursor()
@@ -99,9 +99,9 @@ def delete_comment(id : int):
     try:
         connection = psycopg2.connect(
         user="postgres",
-        password="P@ssw0rd",
+        password="123",
         host="127.0.0.1",
-        port="5432",
+        port="5433",
         database="messages"
         )
         cursor = connection.cursor()
@@ -120,9 +120,9 @@ def delete_post(id : int):
     try:
         connection = psycopg2.connect(
         user="postgres",
-        password="P@ssw0rd",
+        password="123",
         host="127.0.0.1",
-        port="5432",
+        port="5433",
         database="messages"
         )
         cursor = connection.cursor()
