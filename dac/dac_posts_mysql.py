@@ -1,7 +1,7 @@
 import mysql.connector
 from .dac_posts_interface import dac_posts_interface
 
-class DacPostsMySQL(dac_posts_interface):
+class dac_posts_mysql(dac_posts_interface):
     def __init__(self):
         self.connection = None
 

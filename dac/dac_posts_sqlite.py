@@ -1,7 +1,7 @@
 import sqlite3
 from .dac_posts_interface import dac_posts_interface
 
-class DacPostsSqlite(dac_posts_interface):
+class dac_posts_sqlite(dac_posts_interface):
     def __init__(self):
         self.connection = None
 
