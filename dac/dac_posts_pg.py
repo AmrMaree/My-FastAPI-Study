@@ -190,3 +190,4 @@ class dac_posts_pg(dac_posts_interface):
         return posts
     
     
+    
