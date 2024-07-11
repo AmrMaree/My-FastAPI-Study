@@ -26,7 +26,6 @@ class dac_posts_pg(dac_posts_interface):
             sql_command = """SELECT content FROM messages WHERE id = 2;"""
             cursor.execute(sql_command)
             message = cursor.fetchone()
-            print(message)
         except Exception as ex:
             print("Failed to fetch messages from the database")
             raise ex
@@ -119,3 +118,17 @@ class dac_posts_pg(dac_posts_interface):
         finally:
             connection.close()
         return True
+    
+    def get_posts(self):
+        try:
+            connection = self.pg_connection()
+            cursor = connection.cursor()
+            sql_command = """select * from posts;"""
+            cursor.execute(sql_command)
+            posts = cursor.fetchall()
+        except Exception as ex:
+            print("Failed to get Comments")
+            raise ex
+        finally:
+            connection.close()
+        return posts

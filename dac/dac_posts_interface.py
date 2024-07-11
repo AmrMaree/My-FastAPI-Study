@@ -19,4 +19,7 @@ class dac_posts_interface:
 
     def delete_post(self, id : int):
         pass
+
+    def get_posts(self):
+        pass
     

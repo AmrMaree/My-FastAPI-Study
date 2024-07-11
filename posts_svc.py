@@ -30,3 +30,6 @@ class posts_svc:
         if self.dac.delete_post(id):
             return {"message": "Deleted post successfully", "success": True}
         return {"message": "Failed to delete post", "success": False}
+    
+    def get_posts(self):
+        return self.dac.get_posts()

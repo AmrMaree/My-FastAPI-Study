@@ -71,6 +71,14 @@ def delete_post(id : int):
         return JSONResponse(status_code=200,content= result["message"])
     return JSONResponse(status_code= 404,content= result["message"])
 
+@app.get("/posts",tags=["posts"])
+def get_posts():
+    try:
+        post = my_posts_svc.get_posts()
+    except Exception as ex:
+        return JSONResponse(status_code=404,content="No post found")
+    return JSONResponse(status_code=200,content= post)
+    
 
 if __name__=="__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
