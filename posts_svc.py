@@ -33,3 +33,8 @@ class posts_svc:
     
     def get_posts(self):
         return self.dac.get_posts()
+    
+    def create_message(self, content : str):
+        if self.dac.create_message(content):
+            return {"message": "Created message successfully", "success": True}
+        return {"message": "Failed to create message", "success": False}

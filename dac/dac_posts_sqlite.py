@@ -18,15 +18,15 @@ class dac_posts_sqlite(dac_posts_interface):
         try:
             connection = self.sqlite_connection()
             cursor = connection.cursor()
-            sql_command = """SELECT content FROM messages WHERE id = 1;"""
+            sql_command = """SELECT content FROM messages;"""
             cursor.execute(sql_command)
-            message = cursor.fetchone()
+            messages = cursor.fetchall()
         except Exception as ex:
             print("Failed to fetch messages from the database")
             raise ex
         finally:
             connection.close()
-        return message
+        return messages
 
     def create_post(self, title: str, content: str, userid: int):
         try:
@@ -109,6 +109,41 @@ class dac_posts_sqlite(dac_posts_interface):
             connection.commit()
         except Exception as ex:
             print("Failed to delete the post and its comments")
+            raise ex
+        finally:
+            connection.close()
+        return True
+    
+    def get_posts(self):
+        try:
+            connection = self.sqlite_connection()
+            cursor = connection.cursor()
+            sql_command = """select * from posts;"""
+            cursor.execute(sql_command)
+            posts = cursor.fetchall()
+        except Exception as ex:
+            print("Failed to get Comments")
+            raise ex
+        finally:
+            connection.close()
+        return posts
+    
+    def create_message(self, content : str):
+        try:
+            connection = self.sqlite_connection()
+            cursor = connection.cursor()
+            sql_command = """select max(id) from messages;"""
+            cursor.execute(sql_command)
+            max_id = cursor.fetchone()[0]
+            if max_id is None:
+                id = 1
+            else:
+                id = int(max_id) + 1
+            sql_command = """insert into messages (id, content) values (? ,?);"""
+            cursor.execute(sql_command,(id , content))
+            connection.commit()
+        except Exception as ex:
+            print("Failed to create message")
             raise ex
         finally:
             connection.close()

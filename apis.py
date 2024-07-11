@@ -18,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 ) 
 
-dac_posts :dac_posts_interface  = dac_posts_pg()
+dac_posts :dac_posts_interface  = dac_posts_sqlite()
 my_posts_svc = p_svc.posts_svc(dac_posts)
 
 
@@ -30,10 +30,10 @@ def root():
 @app.get("/messages",tags=["messages"])
 def get_messages():
     try:
-        message = my_posts_svc.get_messages()
+        messages = my_posts_svc.get_messages()
     except Exception as ex:
         return JSONResponse(status_code= 404,content= "No message found")
-    return JSONResponse(status_code= 200 ,content= message)
+    return JSONResponse(status_code= 200 ,content= messages)
 
 @app.post("/posts",tags=["posts"])
 def create_post(title : str, content : str, userid : int):
@@ -78,6 +78,13 @@ def get_posts():
     except Exception as ex:
         return JSONResponse(status_code=404,content="No post found")
     return JSONResponse(status_code=200,content= post)
+    
+@app.post("/messages",tags=["messages"])
+def create_message(content : str):
+    result = my_posts_svc.create_message(content)
+    if result["success"]:
+        return JSONResponse(status_code=201,content= result["message"])
+    return JSONResponse(status_code= 404,content= result["message"])
     
 
 if __name__=="__main__":
