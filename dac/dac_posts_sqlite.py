@@ -148,3 +148,24 @@ class dac_posts_sqlite(dac_posts_interface):
         finally:
             connection.close()
         return True
+    
+    def create_user(self ,name :str ,email: str):
+        try:
+            connection = self.sqlite_connection()
+            cursor = connection.cursor()
+            sql_command = """select max(id) from users;"""
+            cursor.execute(sql_command)
+            max_id = cursor.fetchone()[0]
+            if max_id is None:
+                id = 1
+            else:
+                id = max_id + 1
+            sql_command = """insert into users (id, name, email) values (?, ?, ?);"""
+            cursor.execute(sql_command,(id, name, email))
+            connection.commit()
+        except Exception as ex:
+            print("Failed to create user")
+            raise ex
+        finally:
+            connection.close()
+        return True

@@ -18,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 ) 
 
-dac_posts :dac_posts_interface  = dac_posts_sqlite()
+dac_posts :dac_posts_interface  = dac_posts_pg()
 my_posts_svc = p_svc.posts_svc(dac_posts)
 
 
@@ -42,14 +42,14 @@ def create_post(title : str, content : str, userid : int):
         return JSONResponse(status_code=201,content= result["message"])
     return JSONResponse(status_code= 404,content= result["message"])
 
-@app.post("/posts/{id}/comments",tags=["posts"])
+@app.post("/posts/{id}/comments",tags=["comments"])
 def create_comment(content : str, post_id: int, user_id : int):
     result = my_posts_svc.create_comment(content, post_id ,user_id)
     if result["success"]: 
         return JSONResponse(status_code=201,content= result["message"])
     return JSONResponse(status_code= 404,content= result["message"])
 
-@app.get("/posts/{id}/comments",tags=["posts"])
+@app.get("/posts/{id}/comments",tags=["comments"])
 def get_post_comments(post_id : int):
     comments = my_posts_svc.get_post_comments(post_id)
     print(comments)
@@ -57,7 +57,7 @@ def get_post_comments(post_id : int):
         return {"message": comments}
     return {"message": "No comments found"}
 
-@app.delete("/comments/{comment_id}",tags=["posts"])
+@app.delete("/comments/{comment_id}",tags=["comments"])
 def delete_comment(id : int):
     result = my_posts_svc.delete_comment(id)
     if result["success"]: 
@@ -86,6 +86,20 @@ def create_message(content : str):
         return JSONResponse(status_code=201,content= result["message"])
     return JSONResponse(status_code= 404,content= result["message"])
     
+@app.post("/users",tags=["users"])
+def create_user(name : str, email : str):
+    result = my_posts_svc.create_user(name,email)
+    if result["success"]:
+        return JSONResponse(status_code=201,content= result["message"])
+    return JSONResponse(status_code= 404,content= result["message"])
+    
+@app.get("/users",tags=["users"])
+def get_users():
+    try:
+        users= my_posts_svc.get_users()
+    except Exception as ex:
+        return JSONResponse(status_code=404,content="No users found")
+    return JSONResponse(status_code=200,content= users)
 
 if __name__=="__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

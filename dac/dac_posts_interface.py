@@ -25,3 +25,9 @@ class dac_posts_interface:
     
     def create_message(self, content : str):
         pass
+
+    def create_user(self, name : str, email : str):
+        pass
+
+    def get_users(self):
+        pass

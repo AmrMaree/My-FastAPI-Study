@@ -153,3 +153,40 @@ class dac_posts_pg(dac_posts_interface):
         finally:
             connection.close()
         return True
+    
+    def create_user(self ,name :str ,email: str):
+        try:
+            connection = self.pg_connection()
+            cursor = connection.cursor()
+            sql_command = """select max(id) from users;"""
+            cursor.execute(sql_command)
+            max_id = cursor.fetchone()[0]
+            if max_id is None:
+                id = 1
+            else:
+                id = max_id + 1
+            sql_command = """insert into users (id, name, email) values (%s, %s, %s);"""
+            cursor.execute(sql_command,(id, name, email))
+            connection.commit()
+        except Exception as ex:
+            print("Failed to create user")
+            raise ex
+        finally:
+            connection.close()
+        return True
+    
+    def get_users(self):
+        try:
+            connection = self.pg_connection()
+            cursor = connection.cursor()
+            sql_command = """select * from users;"""
+            cursor.execute(sql_command)
+            posts = cursor.fetchall()
+        except Exception as ex:
+            print("Failed to get users")
+            raise ex
+        finally:
+            connection.close()
+        return posts
+    
+    

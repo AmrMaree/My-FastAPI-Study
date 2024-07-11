@@ -38,3 +38,11 @@ class posts_svc:
         if self.dac.create_message(content):
             return {"message": "Created message successfully", "success": True}
         return {"message": "Failed to create message", "success": False}
+    
+    def create_user(self, name : str, email : str):
+        if self.dac.create_user(name,email):
+            return {"message": "Created user successfully", "success": True}
+        return {"message": "Failed to create user", "success": False}
+    
+    def get_users(self):
+        return self.dac.get_users()
