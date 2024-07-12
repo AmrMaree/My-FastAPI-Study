@@ -1,5 +1,5 @@
 import psycopg2
-from dac.dac_posts_interface import dac_posts_interface
+from app.dac.dac_posts_interface import dac_posts_interface
 
 class dac_posts_pg(dac_posts_interface):
     def __init__(self):
