@@ -1,5 +1,5 @@
 import mysql.connector
-from .dac_posts_interface import dac_posts_interface
+from app.dac.dac_posts_interface import dac_posts_interface
 from app.utils.utils import utils
 
 class dac_posts_mysql(dac_posts_interface):

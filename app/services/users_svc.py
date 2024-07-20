@@ -10,8 +10,9 @@ class users_svc:
         return {"message": "Failed to create user", "success": False}
     
     def login(self, email : str, password : str):
-        if self.dac.login(email,password):
-            return {"message": "Logged in successfully", "success": True}
+        token = self.dac.login(email,password)
+        if token:
+            return {"message": "Logged in successfully","token":token, "success": True}
         return {"message": "Failed to login", "success": False}
     
     def get_users(self):

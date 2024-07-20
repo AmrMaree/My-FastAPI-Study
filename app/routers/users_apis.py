@@ -1,10 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
+from fastapi.security import OAuth2PasswordRequestForm
 from app.dac.dac_posts_sqlite import dac_posts_sqlite
 from app.dac.dac_posts_mysql import dac_posts_mysql
 from app.dac.dac_posts_pg import dac_posts_pg
 from app.dac.dac_posts_interface import dac_posts_interface
 import app.services.users_svc as u_svc
+from app.services.auth_svc import oauth2_scheme
 
 router = APIRouter()
 
@@ -19,15 +21,15 @@ def create_user(name : str, email : str,password : str):
     return JSONResponse(status_code= 404,content= result["message"])
 
 @router.post("/login",tags=["users"])
-def login(email : str,password : str):
-    result = my_users_svc.login(email,password)
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    result = my_users_svc.login(form_data.username,form_data.password)
     if result["success"]:
-        return JSONResponse(status_code=200,content= result["message"])
+        return JSONResponse(status_code=200,content= result)
     return JSONResponse(status_code= 404,content= result["message"])
 
 
 @router.get("/",tags=["users"])
-def get_users():
+def get_users(token: str = Depends(oauth2_scheme)):
     try:
         users= my_users_svc.get_users()
     except Exception as ex:
@@ -36,7 +38,7 @@ def get_users():
 
 
 @router.delete("/")
-def delete_user(id : int):
+def delete_user(id : int,token: str = Depends(oauth2_scheme)):
     result = my_users_svc.delete_user(id)
     if result["success"]:
         return JSONResponse(status_code=200,content= result["message"])

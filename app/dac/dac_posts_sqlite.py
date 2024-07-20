@@ -1,5 +1,5 @@
 import sqlite3
-from .dac_posts_interface import dac_posts_interface
+from app.dac.dac_posts_interface import dac_posts_interface
 from app.utils.utils import utils
 
 class dac_posts_sqlite(dac_posts_interface):

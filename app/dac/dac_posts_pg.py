@@ -1,5 +1,6 @@
 import psycopg2
 from app.dac.dac_posts_interface import dac_posts_interface
+from app.services import auth_svc
 from app.utils.utils import utils
 
 class dac_posts_pg(dac_posts_interface):
@@ -157,8 +158,9 @@ class dac_posts_pg(dac_posts_interface):
             login_password = utils.hash_password_login(password,salt)
             if login_password == hashed_password:
                 print("Login successful")
+                token = auth_svc.encode_auth_token(email)
                 print(salt)
-                return True
+                return token
             else:
                 print("Incorrect password")
                 print(salt)
@@ -168,6 +170,7 @@ class dac_posts_pg(dac_posts_interface):
             raise ex
         finally:
             connection.close()
+        
 
     def get_users(self):
         try:

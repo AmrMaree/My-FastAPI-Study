@@ -1,9 +1,3 @@
--- Create the messages table if it does not already exist
-CREATE TABLE IF NOT EXISTS messages (
-    id INTEGER PRIMARY KEY,
-    content TEXT
-);
-
 -- Create the users table
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY,
