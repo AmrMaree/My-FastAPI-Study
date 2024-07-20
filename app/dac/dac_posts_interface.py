@@ -31,3 +31,6 @@ class dac_posts_interface:
 
     def get_users(self):
         pass
+
+    def delete_user(self, id :int):
+        pass

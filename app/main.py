@@ -13,15 +13,14 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-# Include routers
-app.include_router(posts_apis.router, prefix="/posts", tags=["posts"])
-app.include_router(comments_apis.router, prefix="", tags=["comments"])
-app.include_router(users_apis.router,prefix="/users", tags=["users"])
-
 @app.get("/",tags=["default"])
 def root():
     return {"message": "Welcome to FastAPI"}
 
+# Include routers
+app.include_router(users_apis.router,prefix="/users", tags=["users"])
+app.include_router(posts_apis.router, prefix="/posts", tags=["posts"])
+app.include_router(comments_apis.router, prefix="", tags=["comments"])
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

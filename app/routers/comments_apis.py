@@ -9,7 +9,7 @@ import app.services.comments_svc as c_svc
 router = APIRouter()
 
 dac_posts :dac_posts_interface  = dac_posts_pg()
-my_comments_svc = c_svc.posts_svc(dac_posts)
+my_comments_svc = c_svc.comments_svc(dac_posts)
 
 
 @router.post("/posts/{id}/comments",tags=["comments"])

@@ -1,6 +1,6 @@
 from app.dac.dac_posts_interface import dac_posts_interface
 
-class posts_svc:
+class comments_svc:
     def __init__(self, dac : dac_posts_interface):
         self.dac = dac
 
