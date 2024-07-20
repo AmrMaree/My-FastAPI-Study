@@ -2,9 +2,6 @@ class dac_posts_interface:
     def connect(self):
         pass
     
-    def get_messages(self):
-        pass
-
     def create_post(self, title : str, content : str, userid : int):
         pass
 
@@ -21,9 +18,6 @@ class dac_posts_interface:
         pass
 
     def get_posts(self):
-        pass
-    
-    def create_message(self, content : str):
         pass
 
     def create_user(self, name : str, email : str):

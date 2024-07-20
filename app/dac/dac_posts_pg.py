@@ -20,20 +20,6 @@ class dac_posts_pg(dac_posts_interface):
             raise ex
         return self.connection
 
-    def get_messages(self):
-        try:
-            connection = self.pg_connection()
-            cursor = connection.cursor()
-            sql_command = """SELECT content FROM messages;"""
-            cursor.execute(sql_command)
-            messages = cursor.fetchall()
-        except Exception as ex:
-            print("Failed to fetch messages from the database")
-            raise ex
-        finally:
-            connection.close()
-        return messages
-
     def create_post(self, title: str, content: str, userid: int):
         try:
             connection = self.pg_connection()
@@ -133,27 +119,6 @@ class dac_posts_pg(dac_posts_interface):
         finally:
             connection.close()
         return posts
-
-    def create_message(self, content : str):
-        try:
-            connection = self.pg_connection()
-            cursor = connection.cursor()
-            sql_command = """select max(id) from messages;"""
-            cursor.execute(sql_command)
-            max_id = cursor.fetchone()[0]
-            if max_id is None:
-                id = 1
-            else:
-                id = int(max_id) + 1
-            sql_command = """insert into messages (id, content) values (%s ,%s);"""
-            cursor.execute(sql_command,(id , content))
-            connection.commit()
-        except Exception as ex:
-            print("Failed to create message")
-            raise ex
-        finally:
-            connection.close()
-        return True
     
     def create_user(self ,name :str ,email: str, password : str):
         try:
