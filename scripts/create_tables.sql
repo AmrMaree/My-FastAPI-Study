@@ -1,8 +1,10 @@
 -- Create the users table
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE
+    email TEXT NOT NULL UNIQUE,
+    password Text NOT NULL,
+    salt TEXT NOT NULL
 );
 
 -- Create the posts table with a foreign key to the users table
